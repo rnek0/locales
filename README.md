@@ -4,4 +4,4 @@ Get the "locale NAME" with two letters.
 
 ---
 
-Enjoy 
+Enjoy :crab:
