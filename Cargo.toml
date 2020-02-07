@@ -8,4 +8,6 @@ edition = "2018"
 
 [dependencies]
 locale_config = "0.3.0"
-bindgen = "0.51.1"
+
+[build-dependencies]
+bindgen = "0.53.1"
