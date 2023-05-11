@@ -1,18 +1,25 @@
-use locale_config;
-use std::str;
-use std::ffi::CStr;
-
-
 // #![allow(non_upper_case_globals)]
 // #![allow(non_camel_case_types)]
 // #![allow(non_snake_case)]
 
-include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+use locale_config;
+use std::str;
+use std::ffi::CStr;
+use std::os::raw::c_char;
+
+
+//include!(concat!(env!("OUT_DIR"), "/bindings.rs"));
+
+extern "C" {
+    fn listEnv() -> *const c_char;
+}
 
 fn my_string_safe() -> String {
-    unsafe {
-        CStr::from_ptr(listEnv()).to_string_lossy().into_owned()
-    }
+    let c_buf: *const c_char = unsafe { listEnv()};
+    let c_str: &CStr = unsafe { CStr::from_ptr(c_buf) };
+    let str_slice: &str = c_str.to_str().unwrap();
+    let str_buf: String = str_slice.to_owned();
+    str_buf
 }
 
 #[cfg(test)]
@@ -27,7 +34,7 @@ mod unit_tests {
 
     #[test]
     fn test_my_string_safe(){
-        assert_eq!(my_string_safe(), "fr");
+        assert_eq!(my_string_safe(), String::from("fr"));
     }
 }
 
@@ -52,8 +59,6 @@ fn get_locale() -> String {
 }
 
 fn main() {
-
-    
 
     println!("{}", get_locale());
 
