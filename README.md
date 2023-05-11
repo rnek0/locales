@@ -2,8 +2,10 @@
 
 Get the "locale NAME" with two letters.
 
+Old project under revision.
+
 ---
 
-Enjoy :crab:
+:crab:
 
 ---
