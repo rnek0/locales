@@ -15,7 +15,9 @@ extern "C" {
 }
 
 fn my_string_safe() -> String {
-    let c_buf: *const c_char = unsafe { listEnv()};
+    // TODO : debug here !!! undefined reference to `listEnv'
+    // see ./langLocale.c
+    let c_buf: *const c_char = unsafe { listEnv()}; 
     let c_str: &CStr = unsafe { CStr::from_ptr(c_buf) };
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned();
